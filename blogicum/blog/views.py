@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
-from django.http import HttpResponseNotFound
 
 posts = [
     {
@@ -47,10 +46,6 @@ posts = [
 
 posts_dict = {post['id']: post for post in posts}
 
-posts_dict = {post['id']: post for post in posts}
-
-posts_dict = {post['id']: post for post in posts}
-
 
 def index(request):
     template = 'blog/index.html'
@@ -60,10 +55,6 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    post = posts_dict.get(id)
-    if not post:
-        return HttpResponseNotFound("<h1>Страница не найдена</h1>")
-    context = {'post': post}
     post = posts_dict.get(id)
     if not post:
         return HttpResponseNotFound("<h1>Страница не найдена</h1>")
