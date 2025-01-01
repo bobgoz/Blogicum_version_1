@@ -44,7 +44,7 @@ posts = [
     },
 ]
 
-posts_dict = {post['id']: post for post in posts}
+posts_ = {post['id']: post for post in posts}
 
 
 def index(request):
@@ -55,8 +55,9 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    post = posts_dict.get(id)
-    if not post:
+    try:
+        post = posts_[id]
+    except KeyError:
         return HttpResponseNotFound("<h1>Страница не найдена</h1>")
     context = {'post': post}
     return render(request, template, context)
