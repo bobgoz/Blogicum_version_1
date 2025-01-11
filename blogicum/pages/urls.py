@@ -1,10 +1,10 @@
 from django.urls import path
+from django.views.generic import TemplateView as TV
 
-from . import views
 
 app_name = 'pages'
 
 urlpatterns = [
-    path('about/', views.about, name='about'),
-    path('rules/', views.rules, name='rules'),
+    path('about/', TV.as_view(template_name='pages/about.html'), name='about'),
+    path('rules/', TV.as_view(template_name='pages/rules.html'), name='rules'),
 ]

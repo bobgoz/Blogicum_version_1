@@ -1,5 +1,6 @@
+from django.http import Http404
 from django.shortcuts import render
-from django.http import HttpResponseNotFound
+
 
 posts = [
     {
@@ -48,22 +49,19 @@ posts_ = {post['id']: post for post in posts}
 
 
 def index(request):
-    template = 'blog/index.html'
     context = {'post': posts}
-    return render(request, template, context)
+    return render(request, 'blog/index.html', context)
 
 
-def post_detail(request, id):
-    template = 'blog/detail.html'
+def post_detail(request, post_id):
     try:
-        post = posts_[id]
+        post = posts_[post_id]
     except KeyError:
-        return HttpResponseNotFound("<h1>Страница не найдена</h1>")
-    context = {'post': post}
-    return render(request, template, context)
+        raise Http404(f"Страница {post_id} не найдена")
+    context = {'post': post, 'post_id': post_id}
+    return render(request, 'blog/detail.html', context)
 
 
 def category_posts(request, category_slug):
-    template = 'blog/category.html'
     context = {'category_slug': category_slug}
-    return render(request, template, context)
+    return render(request, 'blog/category.html', context)
